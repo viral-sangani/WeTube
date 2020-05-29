@@ -19,8 +19,11 @@ import InboxIcon from "@material-ui/icons/MoveToInbox"
 import Brightness4Icon from "@material-ui/icons/Brightness4"
 import Brightness5Icon from "@material-ui/icons/Brightness5"
 import MailIcon from "@material-ui/icons/Mail"
-import { Hidden } from "@material-ui/core"
+import { Hidden, Button } from "@material-ui/core"
+import NavAppBarDropDown from "./NavAppBarDropDown"
 import { ThemeToggleContext } from "../../Context/ThemeContext"
+import { Link } from "react-router-dom"
+import { isAuthenticated } from "../../_helper/auth"
 
 const drawerWidth = 240
 
@@ -60,13 +63,12 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		alignItems: "center",
 		padding: theme.spacing(0, 1),
-		// necessary for content to be below app bar
 		...theme.mixins.toolbar,
 		justifyContent: "flex-end"
 	},
 	content: {
 		flexGrow: 1,
-		padding: theme.spacing(3),
+		padding: theme.spacing(1),
 		transition: theme.transitions.create("margin", {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen
@@ -132,7 +134,7 @@ export default function Navbar(props) {
 								)}
 							</IconButton>
 						</Hidden>
-						{/* {isAuthenticated() ? (
+						{isAuthenticated() ? (
 							<NavAppBarDropDown />
 						) : (
 							<Button
@@ -142,7 +144,7 @@ export default function Navbar(props) {
 							>
 								Signin
 							</Button>
-						)} */}
+						)}
 					</div>
 				</Toolbar>
 			</AppBar>
@@ -199,6 +201,7 @@ export default function Navbar(props) {
 				})}
 			>
 				<div className={classes.drawerHeader} />
+				{props.children}
 			</main>
 		</div>
 	)

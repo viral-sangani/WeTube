@@ -6,6 +6,8 @@ import { GlobalStyles } from "./Utils/Theme/global"
 import { ThemeToggleContext } from "./Context/ThemeContext"
 import { ThemeProvider } from "styled-components"
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
+import SignIn from "./Components/SignIn"
+import SignUp from "./Components/SignUp"
 
 const Routes = () => {
 	const { themeMode } = React.useContext(ThemeToggleContext)
@@ -27,6 +29,8 @@ const Routes = () => {
 					<GlobalStyles />
 					<MuiThemeProvider theme={themeConfig}>
 						<Route path="/" exact component={Home} />
+						<Route path="/signin" exact component={SignIn} />
+						<Route path="/signup" exact component={SignUp} />
 					</MuiThemeProvider>
 				</ThemeProvider>
 			</Switch>

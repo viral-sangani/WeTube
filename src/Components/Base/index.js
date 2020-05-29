@@ -7,7 +7,7 @@ const Base = (props) => {
 	return (
 		<Fragment>
 			{/* <Navibar open={open} setOpen={setOpen}> */}
-			<Navbar></Navbar>
+			<Navbar>{props.children}</Navbar>
 		</Fragment>
 	)
 }

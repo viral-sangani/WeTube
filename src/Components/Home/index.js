@@ -1,6 +1,17 @@
 import React from "react"
 import Base from "../Base/"
 // import CustomLoader from "../../Utils/CustomLoader"
+import VideoCard from "../Video/VideoCard"
+import styled from "styled-components"
+
+const VideoDiv = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	@media (max-width: 500px) {
+		justify-content: space-around;
+	}
+`
 
 const Home = (props) => {
 	// const [videos, setVideos] = useState([])
@@ -28,6 +39,15 @@ const Home = (props) => {
 						})
 					)}
 				</div> */}
+				<VideoDiv>
+					<VideoCard />
+					<VideoCard />
+					<VideoCard />
+					<VideoCard />
+					<VideoCard />
+					<VideoCard />
+					<VideoCard />
+				</VideoDiv>
 			</Base>
 		</React.Fragment>
 	)
