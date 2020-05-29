@@ -20,21 +20,9 @@ import Brightness4Icon from "@material-ui/icons/Brightness4"
 import Brightness5Icon from "@material-ui/icons/Brightness5"
 import MailIcon from "@material-ui/icons/Mail"
 import { Hidden } from "@material-ui/core"
-import styled from "styled-components"
 import { ThemeToggleContext } from "../../Context/ThemeContext"
 
 const drawerWidth = 240
-
-const StyledDrawer = styled(Drawer)`
-	.MuiDrawer-paper {
-		background: ${(props) => props.theme.body};
-		color: ${(props) => props.theme.text};
-	}
-	,
-	.MuiSvgIcon-root {
-		color: ${(props) => props.theme.text};
-	}
-`
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -66,8 +54,7 @@ const useStyles = makeStyles((theme) => ({
 		flexShrink: 0
 	},
 	drawerPaper: {
-		width: drawerWidth,
-		background: "white"
+		width: drawerWidth
 	},
 	drawerHeader: {
 		display: "flex",
@@ -100,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar(props) {
 	const classes = useStyles()
-	const theme = useTheme(props)
+	const theme = useTheme()
 
 	const {
 		open,
@@ -159,7 +146,7 @@ export default function Navbar(props) {
 					</div>
 				</Toolbar>
 			</AppBar>
-			<StyledDrawer
+			<Drawer
 				className={classes.drawer}
 				variant="persistent"
 				anchor="left"
@@ -205,14 +192,13 @@ export default function Navbar(props) {
 						</ListItem>
 					))}
 				</List>
-			</StyledDrawer>
+			</Drawer>
 			<main
 				className={clsx(classes.content, {
 					[classes.contentShift]: open
 				})}
 			>
 				<div className={classes.drawerHeader} />
-				{props.chidren}
 			</main>
 		</div>
 	)

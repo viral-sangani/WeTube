@@ -1,5 +1,5 @@
 import React, { Fragment } from "react"
-import Navibar from "./Navbar"
+import Navbar from "./Navbar"
 // import { SideBarContext } from "../Context/SideBarContext"
 
 const Base = (props) => {
@@ -7,7 +7,7 @@ const Base = (props) => {
 	return (
 		<Fragment>
 			{/* <Navibar open={open} setOpen={setOpen}> */}
-			<Navibar>{props.children}</Navibar>
+			<Navbar></Navbar>
 		</Fragment>
 	)
 }
