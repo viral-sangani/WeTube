@@ -8,6 +8,7 @@ import { ThemeProvider } from "styled-components"
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
 import SignIn from "./Components/SignIn"
 import SignUp from "./Components/SignUp"
+import UserChannel from "./Components/User/UserChannel"
 
 const Routes = () => {
 	const { themeMode } = React.useContext(ThemeToggleContext)
@@ -31,6 +32,11 @@ const Routes = () => {
 						<Route path="/" exact component={Home} />
 						<Route path="/signin" exact component={SignIn} />
 						<Route path="/signup" exact component={SignUp} />
+						<Route
+							path="/user/channel"
+							exact
+							component={UserChannel}
+						/>
 					</MuiThemeProvider>
 				</ThemeProvider>
 			</Switch>

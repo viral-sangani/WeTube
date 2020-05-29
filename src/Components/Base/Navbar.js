@@ -88,9 +88,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Navbar(props) {
-	const classes = useStyles()
-	const theme = useTheme()
-
 	const {
 		open,
 		handleDrawerOpen,
@@ -98,6 +95,29 @@ export default function Navbar(props) {
 		toggleTheme,
 		themeMode
 	} = React.useContext(ThemeToggleContext)
+
+	React.useEffect(() => {
+		const handleResize = () => {
+			if (window.innerWidth < 760) {
+				handleDrawerClose()
+			} else {
+				handleDrawerOpen()
+			}
+		}
+		if (window.innerWidth < 760) {
+			handleDrawerClose()
+		} else {
+			handleDrawerOpen()
+		}
+		window.addEventListener("resize", handleResize)
+		return () => {
+			window.removeEventListener("resize", handleResize)
+		}
+		// eslint(react-hooks/exhaustive-deps)
+	}, [])
+
+	const classes = useStyles()
+	const theme = useTheme()
 
 	return (
 		<div className={classes.root}>
