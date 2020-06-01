@@ -2,17 +2,8 @@ import React from "react"
 import Base from "../Base/"
 import CustomLoader from "../../Utils/CustomLoader"
 import VideoCard from "../Video/VideoCard"
-import styled from "styled-components"
 import axios from "axios"
-
-const VideoDiv = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-	@media (max-width: 500px) {
-		justify-content: space-around;
-	}
-`
+import { VideoDiv } from "../../Utils/Styles"
 
 const Home = (props) => {
 	const [videos, setVideos] = React.useState([])

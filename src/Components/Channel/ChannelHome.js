@@ -7,7 +7,7 @@ import {
 	StyledButtonDiv,
 	StyledChannelName,
 	VideoDiv
-} from "../User/UserChannel"
+} from "../../Utils/Styles"
 import DefaultImg from "../../Static/dafault-channel.png"
 import { Button, Card } from "@material-ui/core"
 import CustomLoader from "../../Utils/CustomLoader"

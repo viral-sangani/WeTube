@@ -27,6 +27,7 @@ import Brightness5Icon from "@material-ui/icons/Brightness5"
 import MailIcon from "@material-ui/icons/Mail"
 import NavAppBarDropDown from "./NavAppBarDropDown"
 import { ThemeToggleContext } from "../../Context/ThemeContext"
+import { StyledLink } from "../../Utils/Styles"
 
 const drawerWidth = 240
 
@@ -191,31 +192,41 @@ export default function Navbar(props) {
 				</div>
 				<Divider />
 				<List>
-					{["Inbox", "Starred", "Send email", "Drafts"].map(
-						(text, index) => (
-							<ListItem button key={text}>
-								<ListItemIcon>
-									{index % 2 === 0 ? (
-										<InboxIcon />
-									) : (
-										<MailIcon />
-									)}
-								</ListItemIcon>
-								<ListItemText primary={text} />
-							</ListItem>
-						)
-					)}
+					<StyledLink to="/">
+						<ListItem button>
+							<ListItemIcon>
+								<InboxIcon />
+							</ListItemIcon>
+							<ListItemText primary={"Home"} />
+						</ListItem>
+					</StyledLink>
+					<StyledLink to="/history">
+						<ListItem button>
+							<ListItemIcon>
+								<InboxIcon />
+							</ListItemIcon>
+							<ListItemText primary={"History"} />
+						</ListItem>
+					</StyledLink>
+					<StyledLink to="/liked">
+						<ListItem button>
+							<ListItemIcon>
+								<InboxIcon />
+							</ListItemIcon>
+							<ListItemText primary={"Liked Videos"} />
+						</ListItem>
+					</StyledLink>
 				</List>
 				<Divider />
 				<List>
-					{["All mail", "Trash", "Spam"].map((text, index) => (
-						<ListItem button key={text}>
+					<StyledLink to="channel/channel-name">
+						<ListItem button>
 							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+								<InboxIcon />
 							</ListItemIcon>
-							<ListItemText primary={text} />
+							<ListItemText primary={"channel-name"} />
 						</ListItem>
-					))}
+					</StyledLink>
 				</List>
 			</Drawer>
 			<main

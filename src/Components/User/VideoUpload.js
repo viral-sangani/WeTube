@@ -1,5 +1,4 @@
 import React from "react"
-import styled from "styled-components"
 import { FormControl, TextField, Button } from "@material-ui/core"
 import axios from "axios"
 import { isAuthenticated } from "../../_helper/auth"
@@ -7,14 +6,7 @@ import "react-toastify/dist/ReactToastify.css"
 import Loader from "react-loader-spinner"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-
-const StyledUploadForm = styled.div`
-	width: 80%;
-	margin: auto;
-	@media (max-width: 880px) {
-		width: 100%;
-	}
-`
+import { StyledUploadForm } from "../../Utils/Styles"
 
 export default function VideoUpload() {
 	const [value, setValue] = React.useState({
