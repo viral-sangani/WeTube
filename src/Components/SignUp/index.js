@@ -1,14 +1,18 @@
 import React, { useState } from "react"
-import Avatar from "@material-ui/core/Avatar"
-import Button from "@material-ui/core/Button"
-import CssBaseline from "@material-ui/core/CssBaseline"
+import {
+	Avatar,
+	Button,
+	CssBaseline,
+	Grid,
+	Box,
+	Typography,
+	FormControl,
+	TextField,
+	Container
+} from "@material-ui/core"
 import { Link, Redirect } from "react-router-dom"
-import Grid from "@material-ui/core/Grid"
-import Box from "@material-ui/core/Box"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
-import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/core/styles"
-import Container from "@material-ui/core/Container"
 import { signup } from "../../_helper/auth"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -68,6 +72,7 @@ export default function SignUp() {
 		setValues({ ...values, loading: true })
 		event.preventDefault()
 		signup({ firstName, lastName, email, password }).then((data) => {
+			console.log(data)
 			if (
 				data.email[0] === "user with this email address already exists."
 			) {
@@ -89,7 +94,6 @@ export default function SignUp() {
 				setValues({
 					...values,
 					firstName: "",
-					lastName: "",
 					email: "",
 					password: "",
 					success: true
@@ -126,76 +130,72 @@ export default function SignUp() {
 					Sign up
 				</Typography>
 
-				<div className="row">
-					<form className="col s12">
-						<div className="row">
-							<div className="input-field col s6">
-								<input
-									id="first_name"
-									type="text"
-									className="validate"
-									onChange={handleChange("firstName")}
-								/>
-								<label htmlFor="first_name">First Name</label>
-							</div>
-							<div className="input-field col s6">
-								<input
-									id="last_name"
-									type="text"
-									className="validate"
-									onChange={handleChange("lastName")}
-								/>
-								<label htmlFor="last_name">Last Name</label>
-							</div>
-						</div>
-						<div className="row">
-							<div className="input-field col s12">
-								<input
-									id="email"
-									type="email"
-									className="validate"
-									value={email}
-									onChange={handleChange("email")}
-								/>
-								<label htmlFor="email">Email</label>
-							</div>
-						</div>
-						<div className="row">
-							<div className="input-field col s12">
-								<input
-									id="password"
-									type="password"
-									className="validate"
-									value={password}
-									onChange={handleChange("password")}
-								/>
-								<label htmlFor="password">Password</label>
-							</div>
-						</div>
-					</form>
-				</div>
-				{!loading && (
-					<Button
-						type="submit"
-						fullWidth
-						variant="contained"
-						color="primary"
-						className={classes.submit}
-						style={{ backgroundColor: "#ff3a22" }}
-						onClick={onSubmit}
-					>
-						Sign Up
-					</Button>
-				)}
-				<div style={{ textAlign: "center" }}>
-					<Loader
-						type="Puff"
-						color="#ff3a22"
-						height={50}
-						width={50}
-						visible={loading} //3 secs
+				{/* <div className="row"> */}
+				<FormControl fullWidth variant="filled">
+					<TextField
+						id="email"
+						style={{ margin: "8px" }}
+						label="First Name"
+						variant="outlined"
+						type="text"
+						placeholder="John"
+						onChange={handleChange("firstName")}
 					/>
-				</div>
+					<TextField
+						id="email"
+						style={{ margin: "8px" }}
+						label="Last Name"
+						variant="outlined"
+						type="text"
+						placeholder="Doe"
+						onChange={handleChange("lastName")}
+					/>
+					<TextField
+						id="email"
+						style={{ margin: "8px" }}
+						label="Email"
+						variant="outlined"
+						type="email"
+						placeholder="placeholder@gmail.com"
+						onChange={handleChange("email")}
+					/>
+					<TextField
+						style={{ margin: "8px" }}
+						id="email"
+						label="Password"
+						variant="outlined"
+						type="password"
+						placeholder="********"
+						onChange={handleChange("password")}
+					/>
+					{!loading && (
+						<Button
+							style={{ backgroundColor: "#ff3a22" }}
+							type="submit"
+							fullWidth
+							variant="contained"
+							color="primary"
+							className={classes.submit}
+							onClick={onSubmit}
+						>
+							Sign In
+						</Button>
+					)}
+					<div
+						style={{
+							textAlign: "center",
+							marginTop: "15px"
+						}}
+					>
+						<Loader
+							type="Puff"
+							color="#ff3a22"
+							height={50}
+							width={50}
+							visible={loading} //3 secs
+						/>
+					</div>
+				</FormControl>
 				<Grid container justify="flex-end">
 					<Grid item>
 						{performRedirect()}

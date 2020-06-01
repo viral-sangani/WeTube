@@ -1,9 +1,13 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
-import Card from "@material-ui/core/Card"
-import CardHeader from "@material-ui/core/CardHeader"
-import CardMedia from "@material-ui/core/CardMedia"
-import Avatar from "@material-ui/core/Avatar"
+import {
+	Card,
+	CardHeader,
+	CardActionArea,
+	CardMedia,
+	Avatar
+} from "@material-ui/core"
 import { red } from "@material-ui/core/colors"
 
 const useStyles = makeStyles((theme) => ({
@@ -43,30 +47,46 @@ const useStyles = makeStyles((theme) => ({
 	}
 }))
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({ video }) {
 	const classes = useStyles()
 
 	return (
 		<Card className={classes.root}>
-			<CardMedia
-				className={classes.media}
-				image="https://material-ui.com/static/images/cards/paella.jpg"
-				title="Paella dish"
-			/>
-			<CardHeader
-				avatar={
-					<Avatar aria-label="recipe" className={classes.avatar}>
-						R
-					</Avatar>
-				}
-				title="Shrimp and Chorizo Paella"
-				subheader={
-					<>
-						<div>Hello</div>
-						<div>1k Views | 1 year ago</div>
-					</>
-				}
-			/>
+			<CardActionArea>
+				<Link
+					to={`watch/${video.videoSlug}`}
+					style={{
+						textDecoration: "none",
+						color: "inherit"
+					}}
+				>
+					<CardMedia
+						className={classes.media}
+						image={video.videoThumbnail}
+						title={video.videoName}
+					/>
+					<CardHeader
+						avatar={
+							<Avatar
+								aria-label="recipe"
+								className={classes.avatar}
+							>
+								R
+							</Avatar>
+						}
+						title="Shrimp and Chorizo Paella"
+						subheader={
+							<>
+								<div>{video.videoChannelName}</div>
+								<div>
+									{video.videoTotalViews} Views |{" "}
+									{video.videoUploadTime}
+								</div>
+							</>
+						}
+					/>
+				</Link>
+			</CardActionArea>
 		</Card>
 	)
 }

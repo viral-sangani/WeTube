@@ -1,29 +1,32 @@
 import React from "react"
 import clsx from "clsx"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
-import Drawer from "@material-ui/core/Drawer"
-import CssBaseline from "@material-ui/core/CssBaseline"
-import AppBar from "@material-ui/core/AppBar"
-import Toolbar from "@material-ui/core/Toolbar"
-import List from "@material-ui/core/List"
-import Typography from "@material-ui/core/Typography"
-import Divider from "@material-ui/core/Divider"
-import IconButton from "@material-ui/core/IconButton"
+import { Link } from "react-router-dom"
+import { isAuthenticated } from "../../_helper/auth"
+import {
+	Hidden,
+	Button,
+	Drawer,
+	CssBaseline,
+	AppBar,
+	Toolbar,
+	List,
+	Typography,
+	Divider,
+	IconButton,
+	ListItem,
+	ListItemIcon,
+	ListItemText
+} from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu"
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
 import InboxIcon from "@material-ui/icons/MoveToInbox"
 import Brightness4Icon from "@material-ui/icons/Brightness4"
 import Brightness5Icon from "@material-ui/icons/Brightness5"
 import MailIcon from "@material-ui/icons/Mail"
-import { Hidden, Button } from "@material-ui/core"
 import NavAppBarDropDown from "./NavAppBarDropDown"
 import { ThemeToggleContext } from "../../Context/ThemeContext"
-import { Link } from "react-router-dom"
-import { isAuthenticated } from "../../_helper/auth"
 
 const drawerWidth = 240
 

@@ -2,16 +2,29 @@ import React from "react"
 import PropTypes from "prop-types"
 import SwipeableViews from "react-swipeable-views"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
-import AppBar from "@material-ui/core/AppBar"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
-import Typography from "@material-ui/core/Typography"
-import Box from "@material-ui/core/Box"
+import {
+	AppBar,
+	Tabs,
+	Tab,
+	Typography,
+	Box,
+	Card,
+	Button,
+	TextField,
+	FormControl,
+	Modal
+} from "@material-ui/core"
 import Base from "../Base"
-import { Card, Button, TextField, FormControl } from "@material-ui/core"
 import styled from "styled-components"
 import VideoCard from "../Video/VideoCard"
-import Modal from "@material-ui/core/Modal"
+import { useDropzone } from "react-dropzone"
+import DefaultImg from "../../Static/dafault-channel.png"
+import "react-toastify/dist/ReactToastify.css"
+import Loader from "react-loader-spinner"
+import axios from "axios"
+import { isAuthenticated } from "../../_helper/auth"
+import CustomLoader from "../../Utils/CustomLoader"
+import VideoUpload from "./VideoUpload"
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props
@@ -33,7 +46,36 @@ function TabPanel(props) {
 	)
 }
 
-const StyledMainDiv = styled.div`
+const getColor = (props) => {
+	if (props.isDragAccept) {
+		return "#00e676"
+	}
+	if (props.isDragReject) {
+		return "#ff1744"
+	}
+	if (props.isDragActive) {
+		return "#2196f3"
+	}
+	return "#eeeeee"
+}
+
+export const Container = styled.div`
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	border-width: 2px;
+	border-radius: 2px;
+	border-color: ${(props) => getColor(props)};
+	border-style: dashed;
+	background-color: #fafafa;
+	color: #bdbdbd;
+	outline: none;
+	transition: border 0.24s ease-in-out;
+	margin: 10px;
+`
+export const StyledMainDiv = styled.div`
 	width: 75%;
 	height: 25vh;
 	margin: auto;
@@ -43,7 +85,7 @@ const StyledMainDiv = styled.div`
 	display: flex;
 	align-items: center;
 `
-const StyledSecDiv = styled.div`
+export const StyledSecDiv = styled.div`
 	display: flex;
 	width: 100%;
 	justify-content: space-between;
@@ -51,25 +93,18 @@ const StyledSecDiv = styled.div`
 	flex-wrap: wrap;
 	margin-left: 20px;
 `
-const StyledImg = styled.img`
-	width: 100px;
+export const StyledImg = styled.img`
+	width: 150px;
 	height: 100px;
 	border-radius: 50%;
 `
-const StyledChannelName = styled.div`
+export const StyledChannelName = styled.div`
 	font-size: 32px;
 `
-const StyledButtonDiv = styled.div`
+export const StyledButtonDiv = styled.div`
 	margin: 15px 0;
 `
-const StyledUploadForm = styled.div`
-	width: 80%;
-	margin: auto;
-	@media (max-width: 880px) {
-		width: 100%;
-	}
-`
-const VideoDiv = styled.div`
+export const VideoDiv = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
@@ -77,7 +112,7 @@ const VideoDiv = styled.div`
 		justify-content: space-around;
 	}
 `
-const ModelDiv = styled.div`
+export const ModelDiv = styled.div`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -107,7 +142,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.background.paper,
 		border: "2px solid #000",
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2, 3, 3),
+		padding: theme.spacing(2, 2, 3),
 		[theme.breakpoints.up("md")]: {
 			width: "75%"
 		}
@@ -115,6 +150,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function UserChannel(props) {
+	const [loading, setLoading] = React.useState(true)
 	const classes = useStyles()
 	const theme = useTheme()
 	const [value, setValue] = React.useState(0)
@@ -133,127 +169,281 @@ export default function UserChannel(props) {
 		setValue(index)
 	}
 
+	const [userChannelState, setUserChannelState] = React.useState({
+		channelName: "",
+		channelImage: null,
+		channelAbout: "",
+		hasChannel: false,
+		error: "",
+		success: false,
+		channelLoading: false
+	})
+	const {
+		channelName,
+		channelImage,
+		channelAbout,
+		hasChannel,
+		channelLoading
+	} = userChannelState
+
+	const handleCreateChannelChange = (name) => (event) => {
+		setUserChannelState({ ...userChannelState, [name]: event.target.value })
+	}
+
+	React.useEffect(() => {
+		let url = `${process.env.REACT_APP_API_URL}/api/user/channel/`
+		axios
+			.get(url, {
+				headers: {
+					"content-type": "multipart/form-data",
+					Authorization: "Bearer " + isAuthenticated().access
+				}
+			})
+			.then((res) => {
+				console.log(res.data)
+				if (res.data.hasChannel) {
+					setUserChannelState({
+						channelImage: res.data.channelImage,
+						hasChannel: res.data.hasChannel,
+						channelName: res.data.channelName,
+						channelAbout: res.data.channelAbout
+					})
+					setLoading(false)
+				}
+			})
+			.catch((err) => console.log("Error" + err))
+	}, [])
+
+	const createChannelSubmit = (event) => {
+		setUserChannelState({
+			...userChannelState,
+			channelLoading: true
+		})
+		event.preventDefault()
+		let form_data = new FormData()
+		form_data.append("channelImage", channelImage, channelImage.name)
+		form_data.append("channelName", channelName)
+		form_data.append("channelAbout", channelAbout)
+		let url = `${process.env.REACT_APP_API_URL}/api/user/channel/create/`
+		axios
+			.post(url, form_data, {
+				headers: {
+					"content-type": "multipart/form-data",
+					Authorization: "Bearer " + isAuthenticated().access
+				}
+			})
+			.then((res) => {
+				console.log(res.data)
+				setUserChannelState({
+					...userChannelState,
+					channelLoading: false,
+					success: true
+				})
+			})
+			.catch((err) => console.log("Error" + err))
+	}
+
+	const {
+		acceptedFiles,
+		getRootProps,
+		getInputProps,
+		isDragActive,
+		isDragAccept,
+		isDragReject
+	} = useDropzone({
+		accept: "image/*",
+		onDrop: (files) => {
+			setUserChannelState({
+				...userChannelState,
+				channelImage: files[0]
+			})
+		}
+	})
+
+	const files = acceptedFiles.map((file) => (
+		<li key={file.path}>
+			{file.path} - {file.size} bytes
+		</li>
+	))
+
 	const createChannel = (
 		<ModelDiv className={classes.paper}>
 			<FormControl fullWidth variant="filled">
 				<h1>Create Channel</h1>
 				<TextField
 					id="channelName"
-					style={{ margin: "8px" }}
+					style={{ margin: "10px" }}
 					label="Channel name"
 					variant="outlined"
 					type="text"
-					// onChange={handleChange("videoName")}
+					onChange={handleCreateChannelChange("channelName")}
 				/>
+				<div className="container">
+					<Container
+						{...getRootProps({
+							isDragActive,
+							isDragAccept,
+							isDragReject
+						})}
+					>
+						<input {...getInputProps()} />
+						<p>Drag 'n' drop channel image.</p>
+					</Container>
+					<aside>
+						<h4>Files</h4>
+						<ul>{files}</ul>
+					</aside>
+				</div>
+				<TextField
+					id="standard-multiline-static"
+					label="Channel Description"
+					multiline
+					rows={4}
+					variant="outlined"
+					defaultValue=""
+					style={{
+						margin: "8px"
+					}}
+					onChange={handleCreateChannelChange("channelAbout")}
+				/>
+				{!channelLoading && (
+					<Button
+						style={{
+							backgroundColor: "red",
+							color: "white",
+							margin: "8px"
+						}}
+						variant="contained"
+						onClick={createChannelSubmit}
+					>
+						Create Channel
+					</Button>
+				)}
+				<div
+					style={{
+						textAlign: "center",
+						marginTop: "15px"
+					}}
+				>
+					<Loader
+						type="Puff"
+						color="#ff3a22"
+						height={50}
+						width={50}
+						visible={channelLoading} //3 secs
+					/>
+				</div>
 			</FormControl>
 		</ModelDiv>
 	)
 
 	return (
 		<Base>
-			<Card variant="outlined">
-				<StyledMainDiv>
-					<StyledImg
-						src="https://avatars2.githubusercontent.com/u/36530381?s=460&u=c855ebdff9ae53fd8ae4d45d6273c45b06e4f83c&v=4"
-						alt="Channel"
-					/>
-					<StyledSecDiv>
-						<StyledChannelName>Viral Sangani</StyledChannelName>
-						<StyledButtonDiv>
-							<Button
-								style={{
-									backgroundColor: "red",
-									color: "white"
-								}}
-								variant="contained"
-								onClick={handleOpen}
-							>
-								Create Channel
-							</Button>
-							<Modal open={open} onClose={handleClose}>
-								{createChannel}
-							</Modal>
-						</StyledButtonDiv>
-					</StyledSecDiv>
-				</StyledMainDiv>
-				<div className={classes.root}>
-					<AppBar position="static" color="default">
-						<Tabs
-							value={value}
-							onChange={handleChange}
-							indicatorColor="primary"
-							textColor="primary"
-							variant="fullWidth"
-							aria-label="full width tabs example"
-						>
-							<Tab label="Uplaod Video" {...a11yProps(0)} />
-							<Tab label="My Videos" {...a11yProps(1)} />
-						</Tabs>
-					</AppBar>
-					<SwipeableViews
-						axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-						index={value}
-						onChangeIndex={handleChangeIndex}
-					>
-						<TabPanel value={value} index={0} dir={theme.direction}>
-							<StyledUploadForm>
-								<FormControl fullWidth variant="filled">
-									<TextField
-										id="videoName"
-										style={{ margin: "8px" }}
-										label="Video Name"
-										variant="outlined"
-										type="text"
-										// onChange={handleChange("videoName")}
-									/>
-
-									<TextField
-										id="videoURL"
-										style={{ margin: "8px" }}
-										label="Youtube URL of Video"
-										variant="outlined"
-										type="text"
-										// onChange={handleChange("videoName")}
-									/>
-									<TextField
-										id="standard-multiline-static"
-										label="Multiline"
-										multiline
-										rows={4}
-										variant="outlined"
-										defaultValue=""
-										style={{
-											margin: "8px"
-										}}
-									/>
-									<Button
-										style={{
-											backgroundColor: "red",
-											color: "white",
-											margin: "8px"
-										}}
-										variant="contained"
-									>
+			{loading ? (
+				<CustomLoader loading={loading} />
+			) : (
+				<Card variant="outlined">
+					<StyledMainDiv>
+						<StyledImg
+							src={hasChannel ? channelImage : DefaultImg}
+							alt="Channel"
+						/>
+						<StyledSecDiv>
+							<StyledButtonDiv>
+								{hasChannel ? (
+									<>
+										<StyledChannelName>
+											{channelName}
+										</StyledChannelName>
+										<Button
+											style={{
+												backgroundColor: "red",
+												color: "white"
+											}}
+											variant="contained"
+											onClick={handleOpen}
+										>
+											Edit Channel
+										</Button>
+										<Modal
+											open={open}
+											onClose={handleClose}
+										>
+											{createChannel}
+										</Modal>
+									</>
+								) : (
+									<>
+										{/* <StyledChannelName>
 										Create Channel
-									</Button>
-								</FormControl>
-							</StyledUploadForm>
-						</TabPanel>
+									</StyledChannelName> */}
+										<Button
+											style={{
+												backgroundColor: "red",
+												color: "white"
+											}}
+											variant="contained"
+											onClick={handleOpen}
+										>
+											Create Channel
+										</Button>
+										<Modal
+											open={open}
+											onClose={handleClose}
+										>
+											{createChannel}
+										</Modal>
+									</>
+								)}
+							</StyledButtonDiv>
+						</StyledSecDiv>
+					</StyledMainDiv>
+					<div className={classes.root}>
+						<AppBar position="static" color="default">
+							<Tabs
+								value={value}
+								onChange={handleChange}
+								indicatorColor="primary"
+								textColor="primary"
+								variant="fullWidth"
+								aria-label="full width tabs example"
+							>
+								<Tab label="Uplaod Video" {...a11yProps(0)} />
+								<Tab label="My Videos" {...a11yProps(1)} />
+							</Tabs>
+						</AppBar>
+						<SwipeableViews
+							axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+							index={value}
+							onChangeIndex={handleChangeIndex}
+						>
+							<TabPanel
+								value={value}
+								index={0}
+								dir={theme.direction}
+							>
+								<VideoUpload />
+							</TabPanel>
 
-						<TabPanel value={value} index={1} dir={theme.direction}>
-							<VideoDiv>
-								<VideoCard />
-								<VideoCard />
-								<VideoCard />
-								<VideoCard />
-								<VideoCard />
-								<VideoCard />
-								<VideoCard />
-							</VideoDiv>
-						</TabPanel>
-					</SwipeableViews>
-				</div>
-			</Card>
+							<TabPanel
+								value={value}
+								index={1}
+								dir={theme.direction}
+							>
+								<VideoDiv>
+									<VideoCard />
+									<VideoCard />
+									<VideoCard />
+									<VideoCard />
+									<VideoCard />
+									<VideoCard />
+									<VideoCard />
+								</VideoDiv>
+							</TabPanel>
+						</SwipeableViews>
+					</div>
+				</Card>
+			)}
 		</Base>
 	)
 }
