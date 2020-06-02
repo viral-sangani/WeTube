@@ -20,28 +20,30 @@ const useStyles = makeStyles((theme) => ({
 	}
 }))
 
-export default function VideoSideCard() {
+export default function VideoSideCard({ video }) {
 	const classes = useStyles()
 
 	return (
-		<Card className={classes.root}>
+		<Card className={classes.root} variant="outlined">
 			<CardMedia
 				className={classes.cover}
-				image="https://material-ui.com/static/images/cards/live-from-space.jpg"
-				title="Live from space album cover"
+				image={video.videoThumbnail}
+				title={video.videoName}
 			/>
 			<div className={classes.details}>
 				<CardContent
 					className={classes.content}
-					style={{ paddingLeft: "8px" }}
+					style={{ padding: "8px 8px" }}
 				>
-					<Typography variant="subtitle2">Live From Space</Typography>
+					<Typography variant="subtitle2">
+						{video.videoName}
+					</Typography>
 					<Typography variant="overline" color="textSecondary">
-						Mac Miller
+						{video.videoChannelName}
 					</Typography>
 					<br />
 					<Typography variant="caption" color="textSecondary">
-						22M Views | 2 years ago
+						{video.videoTotalViews} Views | {video.videoUploadTime}
 					</Typography>
 				</CardContent>
 			</div>

@@ -104,3 +104,22 @@ export const StyledReactPlayer = styled(ReactPlayer)`
 	top: 0;
 	left: 0;
 `
+export const StyledVideoDescDiv = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 30px;
+`
+export const StyledDescSideDiv = styled.div`
+	width: 15%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`
+export const StyledDescMainDiv = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 75%;
+`
+export const StyledCommentDiv = styled.div`
+	margin-top: 40px;
+`

@@ -285,13 +285,12 @@ export default function UserChannel(props) {
 							src={hasChannel ? channelImage : DefaultImg}
 							alt="Channel"
 						/>
+
 						<StyledSecDiv>
+							<StyledChannelName>{channelName}</StyledChannelName>
 							<StyledButtonDiv>
 								{hasChannel ? (
 									<>
-										<StyledChannelName>
-											{channelName}
-										</StyledChannelName>
 										<Button
 											style={{
 												backgroundColor: "red",

@@ -1,12 +1,12 @@
 import React from "react"
 import { PlayerWrapper, StyledReactPlayer } from "../../Utils/Styles"
 
-export default function VideoPlayer() {
+export default function VideoPlayer({ url }) {
 	return (
 		<React.Fragment>
 			<PlayerWrapper>
 				<StyledReactPlayer
-					url={"https://www.youtube.com/watch?v=vJNVramny9k"}
+					url={url}
 					width="100%"
 					height="100%"
 					controls={true}

@@ -74,7 +74,7 @@ export default function RecipeReviewCard({ video }) {
 								R
 							</Avatar>
 						}
-						title="Shrimp and Chorizo Paella"
+						title={video.videoName}
 						subheader={
 							<>
 								<div>{video.videoChannelName}</div>
