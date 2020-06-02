@@ -87,6 +87,16 @@ export const TopDiv = styled.div`
 	font-size: 40px;
 `
 
+export const GuestTopDiv = styled.div`
+	width: 80%;
+	margin: auto;
+	height: 80vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 40px;
+`
+
 export const StyledUploadForm = styled.div`
 	width: 80%;
 	margin: auto;

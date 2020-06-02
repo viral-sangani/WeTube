@@ -1,11 +1,12 @@
-import React, { Fragment } from "react"
+import React from "react"
 import Navbar from "./Navbar"
+import { GeneralProvider } from "../../Context/GeneralContext"
 
 const Base = (props) => {
 	return (
-		<Fragment>
+		<GeneralProvider>
 			<Navbar>{props.children}</Navbar>
-		</Fragment>
+		</GeneralProvider>
 	)
 }
 

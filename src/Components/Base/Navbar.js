@@ -16,18 +16,24 @@ import {
 	IconButton,
 	ListItem,
 	ListItemIcon,
-	ListItemText
+	ListItemText,
+	ListItemAvatar,
+	Avatar
 } from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu"
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
-import InboxIcon from "@material-ui/icons/MoveToInbox"
 import Brightness4Icon from "@material-ui/icons/Brightness4"
 import Brightness5Icon from "@material-ui/icons/Brightness5"
-import MailIcon from "@material-ui/icons/Mail"
+import HomeIcon from "@material-ui/icons/Home"
+import HistoryIcon from "@material-ui/icons/History"
+import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied"
 import NavAppBarDropDown from "./NavAppBarDropDown"
+import WhatshotIcon from "@material-ui/icons/Whatshot"
 import { ThemeToggleContext } from "../../Context/ThemeContext"
+import { GeneralContext } from "../../Context/GeneralContext"
 import { StyledLink } from "../../Utils/Styles"
+import axios from "axios"
 
 const drawerWidth = 240
 
@@ -99,8 +105,14 @@ export default function Navbar(props) {
 		toggleTheme,
 		themeMode
 	} = React.useContext(ThemeToggleContext)
+	const { channels, setChannels } = React.useContext(GeneralContext)
 
 	React.useEffect(() => {
+		let url = `${process.env.REACT_APP_API_URL}/api/channels/`
+		axios.get(url).then((res) => {
+			console.log(res.data)
+			setChannels(res.data)
+		})
 		const handleResize = () => {
 			if (window.innerWidth < 760) {
 				handleDrawerClose()
@@ -195,7 +207,7 @@ export default function Navbar(props) {
 					<StyledLink to="/">
 						<ListItem button>
 							<ListItemIcon>
-								<InboxIcon />
+								<HomeIcon />
 							</ListItemIcon>
 							<ListItemText primary={"Home"} />
 						</ListItem>
@@ -203,7 +215,7 @@ export default function Navbar(props) {
 					<StyledLink to="/history">
 						<ListItem button>
 							<ListItemIcon>
-								<InboxIcon />
+								<HistoryIcon />
 							</ListItemIcon>
 							<ListItemText primary={"History"} />
 						</ListItem>
@@ -211,22 +223,52 @@ export default function Navbar(props) {
 					<StyledLink to="/liked">
 						<ListItem button>
 							<ListItemIcon>
-								<InboxIcon />
+								<SentimentVerySatisfiedIcon />
 							</ListItemIcon>
 							<ListItemText primary={"Liked Videos"} />
 						</ListItem>
 					</StyledLink>
-				</List>
-				<Divider />
-				<List>
-					<StyledLink to="channel/channel-name">
+					<StyledLink to="/trending">
 						<ListItem button>
 							<ListItemIcon>
-								<InboxIcon />
+								<WhatshotIcon />
 							</ListItemIcon>
-							<ListItemText primary={"channel-name"} />
+							<ListItemText primary={"Trending Today"} />
 						</ListItem>
 					</StyledLink>
+				</List>
+				<Divider />
+				<Typography
+					style={{ padding: "8px 0 0 8px" }}
+					variant="button"
+					display="block"
+					gutterBottom
+				>
+					Channels
+				</Typography>
+
+				<List>
+					{channels &&
+						channels.map((channel) => {
+							console.log(channel.channelImage)
+							return (
+								<StyledLink
+									to={`channel/${channel.channelSlug}`}
+								>
+									<ListItem button>
+										<ListItemAvatar>
+											<Avatar
+												alt={channel.channelName}
+												src={channel.channelImage}
+											/>
+										</ListItemAvatar>
+										<ListItemText
+											primary={channel.channelName}
+										/>
+									</ListItem>
+								</StyledLink>
+							)
+						})}
 				</List>
 			</Drawer>
 			<main
