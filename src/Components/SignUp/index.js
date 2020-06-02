@@ -72,7 +72,6 @@ export default function SignUp() {
 		setValues({ ...values, loading: true })
 		event.preventDefault()
 		signup({ firstName, lastName, email, password }).then((data) => {
-			console.log(data)
 			if (
 				data.email[0] === "user with this email address already exists."
 			) {

@@ -11,7 +11,6 @@ const Home = (props) => {
 	React.useEffect(() => {
 		window.scrollTo(0, 0)
 		axios.get(`${process.env.REACT_APP_API_URL}/api/video`).then((res) => {
-			console.log(res.data)
 			setVideos(res.data)
 			setLoading(false)
 		})
@@ -26,7 +25,6 @@ const Home = (props) => {
 							<CustomLoader loading={loading} />
 						) : (
 							videos.map((video) => {
-								console.log(video)
 								return (
 									<VideoCard
 										video={video}

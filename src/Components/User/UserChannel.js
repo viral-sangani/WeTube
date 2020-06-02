@@ -137,7 +137,6 @@ export default function UserChannel(props) {
 				}
 			})
 			.then((res) => {
-				console.log(res.data)
 				if (res.data.hasChannel) {
 					setUserChannelState({
 						channelImage: res.data.channelImage,
@@ -170,7 +169,6 @@ export default function UserChannel(props) {
 				}
 			})
 			.then((res) => {
-				console.log(res.data)
 				setUserChannelState({
 					...userChannelState,
 					channelLoading: false,

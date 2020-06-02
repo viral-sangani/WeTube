@@ -57,7 +57,6 @@ export default function Watch() {
 				})
 		} else {
 			axios.get(url).then((res) => {
-				console.log(res.data)
 				setValue(res.data)
 				setLoading(false)
 			})

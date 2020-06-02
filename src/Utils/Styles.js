@@ -111,6 +111,9 @@ export const StyledVideoDescDiv = styled.div`
 `
 export const StyledDescSideDiv = styled.div`
 	width: 15%;
+	@media (max-width: 500px) {
+		width: 30%;
+	}
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -119,6 +122,9 @@ export const StyledDescMainDiv = styled.div`
 	display: flex;
 	justify-content: space-between;
 	width: 75%;
+	@media (max-width: 500px) {
+		width: 60%;
+	}
 `
 export const StyledCommentDiv = styled.div`
 	margin-top: 40px;

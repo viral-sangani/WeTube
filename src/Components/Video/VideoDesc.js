@@ -20,6 +20,7 @@ import {
 	StyledCommentDiv
 } from "../../Utils/Styles"
 import VideoComment from "./VideoComment"
+import SubscribeButton from "../../Utils/SubscribeButton"
 
 const useStyles = makeStyles({
 	root: {
@@ -40,6 +41,7 @@ const useStyles = makeStyles({
 
 export default function OutlinedCard({ value, slug }) {
 	const classes = useStyles()
+	const [totalSub, setTotalSub] = React.useState(value.viodeChannelSubs)
 	const [Liked, setLiked] = React.useState({
 		hasLiked: value.hasLiked,
 		totalLikes: value.videoTotalLikes
@@ -48,7 +50,7 @@ export default function OutlinedCard({ value, slug }) {
 		hasDisliked: value.hasDisliked,
 		totalDislikes: value.videoTotalDislikes
 	})
-
+	const [comment, setComment] = React.useState(value.videoComment)
 	const handleLike = () => {
 		let url = `${process.env.REACT_APP_API_URL}/api/video/like/${slug}`
 		axios
@@ -186,21 +188,15 @@ export default function OutlinedCard({ value, slug }) {
 								variant="overline"
 								color="textSecondary"
 							>
-								{value.viodeChannelSubs} Subscribers
+								{totalSub} Subscribers
 							</Typography>
 						</div>
-						<div>
-							<Button
-								style={{
-									backgroundColor: "red",
-									color: "white"
-								}}
-								variant="contained"
-								// onClick={handleAddSubscription}
-							>
-								Subscribe
-							</Button>
-						</div>
+						<SubscribeButton
+							hasSubscribed={value.hasSubscribed}
+							slug={value.videoChannelSlug}
+							totalSub={totalSub}
+							setTotalSub={setTotalSub}
+						/>
 					</StyledDescMainDiv>
 				</StyledVideoDescDiv>
 				<StyledCommentDiv>
@@ -211,7 +207,12 @@ export default function OutlinedCard({ value, slug }) {
 					>
 						Comments
 					</Typography>
-					<VideoComment />
+					<VideoComment
+						comments={comment}
+						setComment={setComment}
+						slug={slug}
+						userName={value.userName}
+					/>
 				</StyledCommentDiv>
 			</CardContent>
 		</Card>

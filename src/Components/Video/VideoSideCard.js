@@ -25,12 +25,14 @@ export default function VideoSideCard({ video }) {
 
 	return (
 		<Card className={classes.root} variant="outlined">
+			{/* <div style={{ width: "45%" }}> */}
 			<CardMedia
 				className={classes.cover}
 				image={video.videoThumbnail}
 				title={video.videoName}
 			/>
-			<div className={classes.details}>
+			{/* </div> */}
+			<div style={{ width: "55%" }} className={classes.details}>
 				<CardContent
 					className={classes.content}
 					style={{ padding: "8px 8px" }}

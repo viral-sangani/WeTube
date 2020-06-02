@@ -82,7 +82,6 @@ const SignIn = () => {
 		event.preventDefault()
 		setValues({ ...values, loading: true })
 		signin({ email, password }).then((data) => {
-			console.log(data)
 			if (
 				data.detail ===
 				"No active account found with the given credentials"
