@@ -27,6 +27,15 @@ export default function SubscribeButton({
 			})
 	}
 
+	if (!isAuthenticated()) {
+		return (
+			<div>
+				<Button variant="contained" disableElevation disabled>
+					Login to Subscribe
+				</Button>
+			</div>
+		)
+	}
 	return (
 		<div>
 			{subscribed ? (

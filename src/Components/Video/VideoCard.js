@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 		width: "23%",
 		minWidth: "220px",
 		margin: "10px",
+		border: "none",
 		[theme.breakpoints.down("md")]: {
 			minWidth: "220px",
 			width: "31%"
@@ -51,10 +52,10 @@ export default function RecipeReviewCard({ video }) {
 	const classes = useStyles()
 
 	return (
-		<Card className={classes.root}>
+		<Card className={classes.root} variant="outlined">
 			<CardActionArea>
 				<Link
-					to={`watch/${video.videoSlug}`}
+					to={`/watch/${video.videoSlug}`}
 					style={{
 						textDecoration: "none",
 						color: "inherit"
@@ -65,28 +66,47 @@ export default function RecipeReviewCard({ video }) {
 						image={video.videoThumbnail}
 						title={video.videoName}
 					/>
-					<CardHeader
-						avatar={
-							<Avatar
-								aria-label="recipe"
-								className={classes.avatar}
-							>
-								R
-							</Avatar>
-						}
-						title={video.videoName}
-						subheader={
-							<>
-								<div>{video.videoChannelName}</div>
-								<div>
-									{video.videoTotalViews} Views |{" "}
-									{video.videoUploadTime}
-								</div>
-							</>
-						}
-					/>
 				</Link>
 			</CardActionArea>
+			<CardHeader
+				avatar={
+					<Avatar
+						alt="Channel"
+						src={video.videoChannelImage}
+						className={classes.large}
+					/>
+				}
+				title={
+					<Link
+						to={`/watch/${video.videoSlug}`}
+						style={{
+							textDecoration: "none",
+							color: "inherit"
+						}}
+					>
+						{video.videoName}
+					</Link>
+				}
+				subheader={
+					<>
+						<div>
+							<Link
+								to={`/channel/${video.videoChannelSlug}`}
+								style={{
+									textDecoration: "none",
+									color: "inherit"
+								}}
+							>
+								{video.videoChannelName}
+							</Link>
+						</div>
+						<div>
+							{video.videoTotalViews} Views |{" "}
+							{video.videoUploadTime}
+						</div>
+					</>
+				}
+			/>
 		</Card>
 	)
 }

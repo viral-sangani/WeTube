@@ -13,11 +13,11 @@ import {
 	TextField,
 	FormControl,
 	Modal,
-	Container
+	Container,
+	Avatar
 } from "@material-ui/core"
 import {
 	StyledMainDiv,
-	StyledImg,
 	StyledSecDiv,
 	StyledButtonDiv,
 	StyledChannelName,
@@ -48,7 +48,7 @@ function TabPanel(props) {
 		>
 			{value === index && (
 				<Box p={3}>
-					<Typography>{children}</Typography>
+					<Typography component={"span"}>{children}</Typography>
 				</Box>
 			)}
 		</div>
@@ -83,6 +83,10 @@ const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.up("md")]: {
 			width: "75%"
 		}
+	},
+	large: {
+		width: theme.spacing(12),
+		height: theme.spacing(12)
 	}
 }))
 
@@ -113,14 +117,16 @@ export default function UserChannel(props) {
 		hasChannel: false,
 		error: "",
 		success: false,
-		channelLoading: false
+		channelLoading: false,
+		videoList: []
 	})
 	const {
 		channelName,
 		channelImage,
 		channelAbout,
 		hasChannel,
-		channelLoading
+		channelLoading,
+		videoList
 	} = userChannelState
 
 	const handleCreateChannelChange = (name) => (event) => {
@@ -142,7 +148,8 @@ export default function UserChannel(props) {
 						channelImage: res.data.channelImage,
 						hasChannel: res.data.hasChannel,
 						channelName: res.data.channelName,
-						channelAbout: res.data.channelAbout
+						channelAbout: res.data.channelAbout,
+						videoList: res.data.videoList
 					})
 					setLoading(false)
 				}
@@ -279,9 +286,10 @@ export default function UserChannel(props) {
 			) : (
 				<Card variant="outlined">
 					<StyledMainDiv>
-						<StyledImg
-							src={hasChannel ? channelImage : DefaultImg}
+						<Avatar
 							alt="Channel"
+							src={hasChannel ? channelImage : DefaultImg}
+							className={classes.large}
 						/>
 
 						<StyledSecDiv>
@@ -365,13 +373,12 @@ export default function UserChannel(props) {
 								dir={theme.direction}
 							>
 								<VideoDiv>
-									<VideoCard />
-									<VideoCard />
-									<VideoCard />
-									<VideoCard />
-									<VideoCard />
-									<VideoCard />
-									<VideoCard />
+									{videoList.map((video) => (
+										<VideoCard
+											video={video}
+											key={video.videoId}
+										/>
+									))}
 								</VideoDiv>
 							</TabPanel>
 						</SwipeableViews>

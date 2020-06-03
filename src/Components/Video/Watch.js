@@ -34,13 +34,14 @@ const useStyles = makeStyles((theme) => ({
 	}
 }))
 
-export default function Watch() {
+export default function Watch(props) {
 	const { slug } = useParams()
 	const [value, setValue] = React.useState({})
 	const classes = useStyles()
 	const [loading, setLoading] = React.useState(true)
 	const { handleDrawerClose } = React.useContext(ThemeToggleContext)
 	React.useEffect(() => {
+		setLoading(true)
 		handleDrawerClose()
 		let url = `${process.env.REACT_APP_API_URL}/api/video/${slug}`
 		if (isAuthenticated()) {
@@ -51,7 +52,6 @@ export default function Watch() {
 					}
 				})
 				.then((res) => {
-					console.log(res.data)
 					setValue(res.data)
 					setLoading(false)
 				})
@@ -61,7 +61,8 @@ export default function Watch() {
 				setLoading(false)
 			})
 		}
-	}, [])
+		// eslint-disable-next-line
+	}, [slug])
 	return (
 		<Base>
 			{loading ? (

@@ -18,7 +18,9 @@ import {
 	ListItemIcon,
 	ListItemText,
 	ListItemAvatar,
-	Avatar
+	Avatar,
+	FormControlLabel,
+	Switch
 } from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu"
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
@@ -110,7 +112,6 @@ export default function Navbar(props) {
 	React.useEffect(() => {
 		let url = `${process.env.REACT_APP_API_URL}/api/channels/`
 		axios.get(url).then((res) => {
-			console.log(res.data)
 			setChannels(res.data)
 		})
 		const handleResize = () => {
@@ -129,7 +130,7 @@ export default function Navbar(props) {
 		return () => {
 			window.removeEventListener("resize", handleResize)
 		}
-		// eslint(react-hooks/exhaustive-deps)
+		// eslint-disable-next-line
 	}, [])
 
 	const classes = useStyles()
@@ -157,7 +158,7 @@ export default function Navbar(props) {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography variant="h6" noWrap>
+					<Typography component={"span"} variant="h6" noWrap>
 						WeTube
 					</Typography>
 					<div className={classes.appBarButton}>
@@ -243,6 +244,7 @@ export default function Navbar(props) {
 					variant="button"
 					display="block"
 					gutterBottom
+					component={"span"}
 				>
 					Channels
 				</Typography>
@@ -250,10 +252,10 @@ export default function Navbar(props) {
 				<List>
 					{channels &&
 						channels.map((channel) => {
-							console.log(channel.channelImage)
 							return (
 								<StyledLink
-									to={`channel/${channel.channelSlug}`}
+									to={`/channel/${channel.channelSlug}`}
+									key={channel.channelSlug}
 								>
 									<ListItem button>
 										<ListItemAvatar>
@@ -269,6 +271,22 @@ export default function Navbar(props) {
 								</StyledLink>
 							)
 						})}
+					<Hidden smUp>
+						<FormControlLabel
+							style={{ padding: "20px" }}
+							control={
+								<Switch
+									checked={
+										themeMode === "light" ? false : true
+									}
+									onClick={toggleTheme}
+									name="checkedB"
+									color="primary"
+								/>
+							}
+							label="Dark Theme"
+						/>
+					</Hidden>
 				</List>
 			</Drawer>
 			<main

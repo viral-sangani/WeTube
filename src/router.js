@@ -52,7 +52,7 @@ const Routes = () => {
 						/>
 						<Route path="/liked" exact component={UserLikedVideo} />
 						<Route
-							path="/channel/:channelName"
+							path="/channel/:slug"
 							exact
 							component={ChannelHome}
 						/>

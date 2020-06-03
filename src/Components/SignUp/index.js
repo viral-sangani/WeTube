@@ -20,7 +20,12 @@ import Loader from "react-loader-spinner"
 
 function Copyright() {
 	return (
-		<Typography variant="body2" color="textSecondary" align="center">
+		<Typography
+			component={"span"}
+			variant="body2"
+			color="textSecondary"
+			align="center"
+		>
 			{"Copyright © "}
 			<a color="inherit" href="https://viralsangani.me/">
 				viralsangani.me

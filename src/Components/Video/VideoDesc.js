@@ -110,6 +110,7 @@ export default function OutlinedCard({ value, slug }) {
 		<Card className={classes.root} variant="outlined">
 			<CardContent>
 				<Typography
+					component={"span"}
 					className={classes.title}
 					color="textSecondary"
 					gutterBottom
@@ -169,22 +170,44 @@ export default function OutlinedCard({ value, slug }) {
 				<Divider />
 				<StyledVideoDescDiv>
 					<StyledDescSideDiv>
-						<img
-							src={value.videoChannelImage}
+						<Link
+							to={`/watch/${value.videoSlug}`}
 							style={{
-								width: "60px",
-								height: "60px",
-								borderRadius: "50%"
+								textDecoration: "none",
+								color: "inherit"
 							}}
-							alt="Channel"
-						/>
+						>
+							<img
+								src={value.videoChannelImage}
+								style={{
+									width: "60px",
+									height: "60px",
+									borderRadius: "50%"
+								}}
+								alt="Channel"
+							/>
+						</Link>
 					</StyledDescSideDiv>
 					<StyledDescMainDiv>
-						<div>
-							<Typography variant="subtitle2">
-								{value.videoChannelName}
-							</Typography>
+						<div style={{ display: "block" }}>
+							<Link
+								to={`/watch/${value.videoSlug}`}
+								style={{
+									textDecoration: "none",
+									color: "inherit"
+								}}
+							>
+								<Typography
+									variant="h6"
+									component={"span"}
+									style={{ display: "block" }}
+								>
+									{value.videoChannelName}
+								</Typography>
+							</Link>
 							<Typography
+								component={"span"}
+								style={{ display: "block" }}
 								variant="overline"
 								color="textSecondary"
 							>
@@ -202,6 +225,7 @@ export default function OutlinedCard({ value, slug }) {
 				<StyledCommentDiv>
 					<Divider />
 					<Typography
+						component={"span"}
 						style={{ marginTop: "10px" }}
 						variant="subtitle2"
 					>

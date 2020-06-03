@@ -98,7 +98,6 @@ export default function VideoUpload() {
 						multiline
 						rows={4}
 						variant="outlined"
-						defaultValue=""
 						value={value.videoDescription}
 						style={{
 							margin: "8px"

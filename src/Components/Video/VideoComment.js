@@ -6,7 +6,7 @@ import {
 	ListItemText,
 	List,
 	ListItem,
-	Divider,
+	// Divider,
 	FormControl,
 	InputLabel,
 	Input,
@@ -15,6 +15,7 @@ import {
 import Typography from "@material-ui/core/Typography"
 import axios from "axios"
 import { isAuthenticated } from "../../_helper/auth"
+import { Link } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -55,6 +56,18 @@ export default function VideoComment({ userName, comments, setComment, slug }) {
 			.then((res) => {
 				console.log(res.data)
 			})
+	}
+	if (!isAuthenticated()) {
+		return (
+			<Typography
+				component="span"
+				variant="subtitle2"
+				className={classes.inline}
+				color="textPrimary"
+			>
+				<Link to="/signin">Login</Link> to Comment
+			</Typography>
+		)
 	}
 	return (
 		<List className={classes.root}>
@@ -122,7 +135,10 @@ export default function VideoComment({ userName, comments, setComment, slug }) {
 					value={newComment}
 				/>
 				<Button
-					style={{ backgroundColor: "#ff3a22", marginTop: "20px" }}
+					style={{
+						backgroundColor: "#ff3a22",
+						marginTop: "20px"
+					}}
 					type="submit"
 					fullWidth
 					variant="contained"

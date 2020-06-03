@@ -2,8 +2,7 @@ import React from "react"
 import Base from "../Base"
 import VideoCard from "../Video/VideoCard"
 import CustomLoader from "../../Utils/CustomLoader"
-import { TopDiv, GuestTopDiv, VideoDiv } from "../../Utils/Styles"
-import { isAuthenticated } from "../../_helper/auth"
+import { TopDiv, VideoDiv } from "../../Utils/Styles"
 import axios from "axios"
 
 export default function UserTrending() {
