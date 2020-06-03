@@ -143,6 +143,7 @@ export default function UserChannel(props) {
 				}
 			})
 			.then((res) => {
+				console.log(res)
 				if (res.data.hasChannel) {
 					setUserChannelState({
 						channelImage: res.data.channelImage,
@@ -150,6 +151,11 @@ export default function UserChannel(props) {
 						channelName: res.data.channelName,
 						channelAbout: res.data.channelAbout,
 						videoList: res.data.videoList
+					})
+					setLoading(false)
+				} else {
+					setUserChannelState({
+						hasChannel: res.data.hasChannel
 					})
 					setLoading(false)
 				}
@@ -373,12 +379,13 @@ export default function UserChannel(props) {
 								dir={theme.direction}
 							>
 								<VideoDiv>
-									{videoList.map((video) => (
-										<VideoCard
-											video={video}
-											key={video.videoId}
-										/>
-									))}
+									{hasChannel &&
+										videoList.map((video) => (
+											<VideoCard
+												video={video}
+												key={video.videoId}
+											/>
+										))}
 								</VideoDiv>
 							</TabPanel>
 						</SwipeableViews>

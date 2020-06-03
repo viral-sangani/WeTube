@@ -27,7 +27,13 @@ function Copyright() {
 			align="center"
 		>
 			{"Copyright © "}
-			<a color="inherit" href="https://viralsangani.me/">
+			<a
+				color="inherit"
+				style={{
+					color: "inherit"
+				}}
+				href="https://viralsangani.me/"
+			>
 				viralsangani.me
 			</a>{" "}
 			{new Date().getFullYear()}
@@ -208,7 +214,13 @@ const SignIn = () => {
 						<form className={classes.form} noValidate>
 							<Grid container>
 								<Grid item>
-									<Link to="/signup" variant="body2">
+									<Link
+										to="/signup"
+										style={{
+											color: "inherit"
+										}}
+										variant="body2"
+									>
 										{"Don't have an account? Sign Up"}
 									</Link>
 								</Grid>

@@ -27,7 +27,13 @@ function Copyright() {
 			align="center"
 		>
 			{"Copyright © "}
-			<a color="inherit" href="https://viralsangani.me/">
+			<a
+				color="inherit"
+				style={{
+					color: "inherit"
+				}}
+				href="https://viralsangani.me/"
+			>
 				viralsangani.me
 			</a>{" "}
 			{new Date().getFullYear()}
@@ -203,7 +209,13 @@ export default function SignUp() {
 				<Grid container justify="flex-end">
 					<Grid item>
 						{performRedirect()}
-						<Link to="/signin" variant="body2">
+						<Link
+							style={{
+								color: "inherit"
+							}}
+							to="/signin"
+							variant="body2"
+						>
 							Already have an account? Sign in
 						</Link>
 					</Grid>
