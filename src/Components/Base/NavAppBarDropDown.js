@@ -91,6 +91,20 @@ const NavAppBarDropDown = (props) => {
 
 				<StyledMenuItem
 					onClick={() => {
+						window.open(
+							"https://github.com/viral-sangani/WeTube",
+							"_blank"
+						)
+					}}
+					color="inherit"
+				>
+					<ListItemIcon>
+						<HelpIcon fontSize="small" />
+					</ListItemIcon>
+					<ListItemText primary="Github Repo" />
+				</StyledMenuItem>
+				<StyledMenuItem
+					onClick={() => {
 						signout(() => {
 							props.history.push("/")
 						})
@@ -101,19 +115,6 @@ const NavAppBarDropDown = (props) => {
 						<ExitToAppIcon fontSize="small" />
 					</ListItemIcon>
 					<ListItemText primary="Signout" />
-				</StyledMenuItem>
-
-				<StyledMenuItem>
-					<ListItemIcon>
-						<HelpIcon fontSize="small" />
-					</ListItemIcon>
-					<ListItemText primary="Help" />
-				</StyledMenuItem>
-				<StyledMenuItem>
-					<ListItemIcon>
-						<SettingsIcon fontSize="small" />
-					</ListItemIcon>
-					<ListItemText primary="Settings" />
 				</StyledMenuItem>
 			</StyledMenu>
 		</Fragment>

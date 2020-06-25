@@ -229,6 +229,16 @@ export default function OutlinedCard({ value, slug }) {
 						style={{ marginTop: "10px" }}
 						variant="subtitle2"
 					>
+						{value.videoDescription}
+					</Typography>
+				</StyledCommentDiv>
+				<StyledCommentDiv>
+					<Divider />
+					<Typography
+						component={"span"}
+						style={{ marginTop: "10px" }}
+						variant="subtitle2"
+					>
 						Comments
 					</Typography>
 					<VideoComment

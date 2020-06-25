@@ -1,6 +1,6 @@
 import React from "react"
 import clsx from "clsx"
-import { makeStyles, useTheme } from "@material-ui/core/styles"
+import { makeStyles, useTheme, fade } from "@material-ui/core/styles"
 import { Link } from "react-router-dom"
 import { isAuthenticated } from "../../_helper/auth"
 import {
@@ -20,9 +20,11 @@ import {
 	ListItemAvatar,
 	Avatar,
 	FormControlLabel,
-	Switch
+	Switch,
+	InputBase
 } from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu"
+import SearchIcon from "@material-ui/icons/Search"
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
 import Brightness4Icon from "@material-ui/icons/Brightness4"
@@ -36,6 +38,7 @@ import { ThemeToggleContext } from "../../Context/ThemeContext"
 import { GeneralContext } from "../../Context/GeneralContext"
 import { StyledLink } from "../../Utils/Styles"
 import axios from "axios"
+import { useHistory } from "react-router-dom"
 
 const drawerWidth = 240
 
@@ -71,6 +74,30 @@ const useStyles = makeStyles((theme) => ({
 	drawerPaper: {
 		width: drawerWidth
 	},
+	searchIcon: {
+		padding: theme.spacing(0, 2),
+		height: "100%",
+		position: "absolute",
+		pointerEvents: "none",
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center"
+	},
+	search: {
+		position: "relative",
+		borderRadius: theme.shape.borderRadius,
+		backgroundColor: fade(theme.palette.common.white, 0.15),
+		"&:hover": {
+			backgroundColor: fade(theme.palette.common.white, 0.25)
+		},
+		marginRight: theme.spacing(2),
+		marginLeft: 0,
+		width: "100%",
+		[theme.breakpoints.up("sm")]: {
+			marginLeft: theme.spacing(3),
+			width: "auto"
+		}
+	},
 	drawerHeader: {
 		display: "flex",
 		alignItems: "center",
@@ -96,10 +123,25 @@ const useStyles = makeStyles((theme) => ({
 	},
 	appBarButton: {
 		marginLeft: "auto"
+	},
+	inputRoot: {
+		color: "inherit"
+	},
+	inputInput: {
+		padding: theme.spacing(1, 1, 1, 0),
+		// vertical padding + font size from searchIcon
+		paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+		transition: theme.transitions.create("width"),
+		width: "100%",
+		[theme.breakpoints.up("md")]: {
+			width: "20ch"
+		}
 	}
 }))
 
 export default function Navbar(props) {
+	const history = useHistory()
+	const [search, setSearch] = React.useState("")
 	const {
 		open,
 		handleDrawerOpen,
@@ -161,6 +203,26 @@ export default function Navbar(props) {
 					<Typography component={"span"} variant="h6" noWrap>
 						WeTube
 					</Typography>
+					<div className={classes.search}>
+						<div className={classes.searchIcon}>
+							<SearchIcon />
+						</div>
+						<InputBase
+							placeholder="Search…"
+							classes={{
+								root: classes.inputRoot,
+								input: classes.inputInput
+							}}
+							value={search}
+							onChange={(event) => setSearch(event.target.value)}
+							inputProps={{ "aria-label": "search" }}
+							onKeyPress={(ev) => {
+								if (ev.key === "Enter") {
+									history.push(`/search/${search}`)
+								}
+							}}
+						/>
+					</div>
 					<div className={classes.appBarButton}>
 						<Hidden smDown>
 							<IconButton onClick={toggleTheme} color="inherit">

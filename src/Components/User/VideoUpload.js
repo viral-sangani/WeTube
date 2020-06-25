@@ -60,7 +60,7 @@ export default function VideoUpload() {
 
 	return (
 		<React.Fragment>
-			<ToastContainer
+			{/* <ToastContainer
 				position="top-center"
 				autoClose={5000}
 				hideProgressBar={false}
@@ -70,7 +70,7 @@ export default function VideoUpload() {
 				pauseOnFocusLoss
 				draggable
 				pauseOnHover
-			/>
+			/> */}
 			<StyledUploadForm>
 				<FormControl fullWidth variant="filled">
 					<TextField

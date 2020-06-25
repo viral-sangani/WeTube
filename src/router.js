@@ -15,6 +15,7 @@ import UserLikedVideo from "./Components/User/UserLikedVideo"
 import ChannelHome from "./Components/Channel/ChannelHome"
 import UserTrending from "./Components/User/UserTrending"
 // import PrivateRoute from "./_helper/auth/PrivateRoutes"
+import Search from "./Components/Search/Search"
 
 const Routes = () => {
 	const { themeMode } = React.useContext(ThemeToggleContext)
@@ -39,6 +40,7 @@ const Routes = () => {
 						<Route path="/signin" exact component={SignIn} />
 						<Route path="/signup" exact component={SignUp} />
 						<Route path="/watch/:slug" exact component={Watch} />
+						<Route path="/search/:slug?" exact component={Search} />
 						<Route
 							path="/user/channel"
 							exact

@@ -29,6 +29,7 @@ import VideoCard from "../Video/VideoCard"
 import { useDropzone } from "react-dropzone"
 import DefaultImg from "../../Static/dafault-channel.png"
 import "react-toastify/dist/ReactToastify.css"
+import { ToastContainer, toast } from "react-toastify"
 import Loader from "react-loader-spinner"
 import axios from "axios"
 import { isAuthenticated } from "../../_helper/auth"
@@ -143,7 +144,6 @@ export default function UserChannel(props) {
 				}
 			})
 			.then((res) => {
-				console.log(res)
 				if (res.data.hasChannel) {
 					setUserChannelState({
 						channelImage: res.data.channelImage,
@@ -182,11 +182,26 @@ export default function UserChannel(props) {
 				}
 			})
 			.then((res) => {
+				console.log("res", res)
 				setUserChannelState({
-					...userChannelState,
+					channelImage: res.data.channelImage,
+					hasChannel: res.data.hasChannel,
+					channelName: res.data.channelName,
+					channelAbout: res.data.channelAbout,
+					videoList: res.data.videoList,
 					channelLoading: false,
 					success: true
 				})
+				toast.success("Channel Successfully Created", {
+					position: "top-center",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined
+				})
+				setOpen(false)
 			})
 			.catch((err) => console.log("Error" + err))
 	}
@@ -267,26 +282,39 @@ export default function UserChannel(props) {
 						Create Channel
 					</Button>
 				)}
-				<div
-					style={{
-						textAlign: "center",
-						marginTop: "15px"
-					}}
-				>
-					<Loader
-						type="Puff"
-						color="#ff3a22"
-						height={50}
-						width={50}
-						visible={channelLoading} //3 secs
-					/>
-				</div>
+				{channelLoading && (
+					<div
+						style={{
+							textAlign: "center",
+							marginTop: "15px"
+						}}
+					>
+						<Loader
+							type="Puff"
+							color="#ff3a22"
+							height={50}
+							width={50}
+							visible={channelLoading} //3 secs
+						/>
+					</div>
+				)}
 			</FormControl>
 		</ModelDiv>
 	)
 
 	return (
 		<Base>
+			<ToastContainer
+				position="top-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 			{loading ? (
 				<CustomLoader loading={loading} />
 			) : (
@@ -322,9 +350,6 @@ export default function UserChannel(props) {
 									</>
 								) : (
 									<>
-										{/* <StyledChannelName>
-										Create Channel
-									</StyledChannelName> */}
 										<Button
 											style={{
 												backgroundColor: "red",
@@ -370,7 +395,19 @@ export default function UserChannel(props) {
 								index={0}
 								dir={theme.direction}
 							>
-								<VideoUpload />
+								{hasChannel ? (
+									<VideoUpload />
+								) : (
+									<div
+										style={{
+											display: "flex",
+											justifyContent: "center",
+											alignItems: "center"
+										}}
+									>
+										<h3>Create channel to upload Viodes</h3>
+									</div>
+								)}
 							</TabPanel>
 
 							<TabPanel
