@@ -4,7 +4,7 @@ import axios from "axios"
 import { isAuthenticated } from "../../_helper/auth"
 import "react-toastify/dist/ReactToastify.css"
 import Loader from "react-loader-spinner"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { StyledUploadForm } from "../../Utils/Styles"
 

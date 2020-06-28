@@ -10,7 +10,6 @@ import {
 import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar"
 import AccountCircleIcon from "@material-ui/icons/AccountCircle"
 import HelpIcon from "@material-ui/icons/Help"
-import SettingsIcon from "@material-ui/icons/Settings"
 import ExitToAppIcon from "@material-ui/icons/ExitToApp"
 import { withStyles } from "@material-ui/core/styles"
 import { signout } from "../../_helper/auth"
