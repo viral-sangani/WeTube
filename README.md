@@ -48,7 +48,7 @@ Created my own APIs using django which can be found here - [https://github.com/v
 
 1. Clone/Download [this](https://github.com/viral-sangani/gatsby-blog) repository.
 2. Inside the project open a terminal and run `npm i --save`.
-3. To start the project, run `gatsby develop`.
+3. To start the project, run `npm run`.
 
 ### 💜 Thanks
 
