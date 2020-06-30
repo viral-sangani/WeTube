@@ -1,68 +1,55 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+    <img src="./src/Static/linkedin_banner_image_2.jpg" alt="Personal Logo">
+    <br>
+    <br>
+    <a href="https://deepscan.io/dashboard#view=project&tid=8921&pid=11941&bid=179294"><img src="https://deepscan.io/api/teams/8921/projects/11941/branches/179294/badge/grade.svg" alt="DeepScan grade"></a>
 
-## Available Scripts
+</p>
+<p align="center">
+🎞 📺 Just a Clone of Youtube, made with ReactJS and Django APIs.💥
+</p>
 
-In the project directory, you can run:
+<p align="center">
+    Project URL - <a href="https://wetube.viralsangani.me/">https://wetube.viralsangani.me/</a>
+</p>
 
-### `npm start`
+## DEMO
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<p align="center">
+<img src="./src/Static/wetube.gif" alt="Wetube">
+</p>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## :raised_hands: Technology Stack
 
-### `npm test`
+![js](https://img.shields.io/badge/frontend-js-yellow?style=flat&logo=javaScript)
+![gatsby](https://img.shields.io/badge/React-JS-%23663399)
+![materialUI](https://img.shields.io/badge/Material-UI-%231976D2)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### :floppy_disk: Hosted Using
 
-### `npm run build`
+-   **AWS S3** - Static Hosting
+-   **AWS Cloudfront** - CDN Service
+-   **AWS Lamdba** - Serverless function for REST APIs
+-   **AWS API Gateway** - Hosting Django APIs
+-   **AWS Route53** - Sub-Domain Configuration
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### :key: APIs
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Created my own APIs using django which can be found here - [https://github.com/viral-sangani/WeTube-Backend](https://github.com/viral-sangani/WeTube-Backend)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Get Up and Running in 5 Minutes
 
-### `npm run eject`
+### Prerequisites
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+-   [node](https://nodejs.org/en/) >= 12.16.2
+-   [npm](https://www.npmjs.com/) >= 6.14.4
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### :running: Steps
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Clone/Download [this](https://github.com/viral-sangani/gatsby-blog) repository.
+2. Inside the project open a terminal and run `npm i --save`.
+3. To start the project, run `gatsby develop`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 💜 Thanks
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Special thanks to [@tanaypratap](https://github.com/tanaypratap) sir, and [2020.teamtanay.jobchallenge.dev](https://github.com/tanaypratap/teamtanay.jobchallenge.dev) for encouraging student like me to create amazing projects and help us to grow.
