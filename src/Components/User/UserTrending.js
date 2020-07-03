@@ -11,7 +11,9 @@ export default function UserTrending() {
 	React.useEffect(() => {
 		window.scrollTo(0, 0)
 		axios
-			.get(`${process.env.REACT_APP_API_URL}/api/video/trending/`)
+			.get(
+				`https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/video/trending/`
+			)
 			.then((res) => {
 				setVideos(res.data)
 				setLoading(false)

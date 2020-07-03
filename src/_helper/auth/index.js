@@ -1,4 +1,4 @@
-const API = process.env.REACT_APP_API_URL
+const API = `https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/`
 
 export const signup = (user) => {
 	return fetch(`${API}/api/users/`, {

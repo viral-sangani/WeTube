@@ -152,7 +152,7 @@ export default function Navbar(props) {
 	const { channels, setChannels } = React.useContext(GeneralContext)
 
 	React.useEffect(() => {
-		let url = `${process.env.REACT_APP_API_URL}/api/channels/`
+		let url = `https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/channels/`
 		axios.get(url).then((res) => {
 			setChannels(res.data)
 		})

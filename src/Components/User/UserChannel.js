@@ -135,7 +135,7 @@ export default function UserChannel(props) {
 	}
 
 	React.useEffect(() => {
-		let url = `${process.env.REACT_APP_API_URL}/api/user/channel/`
+		let url = `https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/user/channel/`
 		axios
 			.get(url, {
 				headers: {
@@ -173,7 +173,7 @@ export default function UserChannel(props) {
 		form_data.append("channelImage", channelImage, channelImage.name)
 		form_data.append("channelName", channelName)
 		form_data.append("channelAbout", channelAbout)
-		let url = `${process.env.REACT_APP_API_URL}/api/user/channel/create/`
+		let url = `https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/user/channel/create/`
 		axios
 			.post(url, form_data, {
 				headers: {

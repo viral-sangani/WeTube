@@ -43,7 +43,7 @@ export default function Watch(props) {
 	React.useEffect(() => {
 		setLoading(true)
 		handleDrawerClose()
-		let url = `${process.env.REACT_APP_API_URL}/api/video/${slug}`
+		let url = `https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/video/${slug}`
 		if (isAuthenticated()) {
 			axios
 				.get(url, {

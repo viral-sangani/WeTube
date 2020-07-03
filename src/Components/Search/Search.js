@@ -14,7 +14,9 @@ const Search = (props) => {
 	React.useEffect(() => {
 		window.scrollTo(0, 0)
 		axios
-			.get(`${process.env.REACT_APP_API_URL}/api/search?s=${slug}`)
+			.get(
+				`https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/search?s=${slug}`
+			)
 			.then((res) => {
 				if (res.data.empty) {
 					console.log("object")

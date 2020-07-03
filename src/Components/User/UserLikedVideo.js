@@ -12,11 +12,14 @@ export default function UserLiked() {
 	React.useEffect(() => {
 		window.scrollTo(0, 0)
 		axios
-			.get(`${process.env.REACT_APP_API_URL}/api/video/liked/`, {
-				headers: {
-					Authorization: "Bearer " + isAuthenticated().access
+			.get(
+				`https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/video/liked/`,
+				{
+					headers: {
+						Authorization: "Bearer " + isAuthenticated().access
+					}
 				}
-			})
+			)
 			.then((res) => {
 				setVideos(res.data)
 				setLoading(false)

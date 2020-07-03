@@ -28,7 +28,7 @@ export default function ChannelHome() {
 	const [channel, setChannel] = React.useState({})
 	const { slug } = useParams()
 	React.useEffect(() => {
-		let url = `${process.env.REACT_APP_API_URL}/api/channels/${slug}/`
+		let url = `https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/channels/${slug}/`
 		if (isAuthenticated()) {
 			axios
 				.get(url, {

@@ -10,10 +10,14 @@ const Home = (props) => {
 	const [loading, setLoading] = React.useState(true)
 	React.useEffect(() => {
 		window.scrollTo(0, 0)
-		axios.get(`${process.env.REACT_APP_API_URL}/api/video`).then((res) => {
-			setVideos(res.data)
-			setLoading(false)
-		})
+		axios
+			.get(
+				`https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/video`
+			)
+			.then((res) => {
+				setVideos(res.data)
+				setLoading(false)
+			})
 	}, [])
 
 	return (

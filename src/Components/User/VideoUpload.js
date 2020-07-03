@@ -29,7 +29,7 @@ export default function VideoUpload() {
 		form_data.append("videoName", value.videoName)
 		form_data.append("videoLink", value.videoLink)
 		form_data.append("videoDescription", value.videoDescription)
-		let url = `${process.env.REACT_APP_API_URL}/api/user/video/upload/`
+		let url = `https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/user/video/upload/`
 		axios
 			.post(url, form_data, {
 				headers: {

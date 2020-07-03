@@ -52,7 +52,7 @@ export default function OutlinedCard({ value, slug }) {
 	})
 	const [comment, setComment] = React.useState(value.videoComment)
 	const handleLike = () => {
-		let url = `${process.env.REACT_APP_API_URL}/api/video/like/${slug}`
+		let url = `https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/video/like/${slug}`
 		axios
 			.get(url, {
 				headers: {
@@ -79,7 +79,7 @@ export default function OutlinedCard({ value, slug }) {
 	}
 
 	const handleDislike = () => {
-		let url = `${process.env.REACT_APP_API_URL}/api/video/dislike/${slug}`
+		let url = `https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/video/dislike/${slug}`
 		axios
 			.get(url, {
 				headers: {

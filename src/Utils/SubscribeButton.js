@@ -15,7 +15,7 @@ export default function SubscribeButton({
 		setTotalSub(
 			subscribed ? (totalSub = totalSub - 1) : (totalSub = totalSub + 1)
 		)
-		let url = `${process.env.REACT_APP_API_URL}/api/channel/subscribe/${slug}`
+		let url = `https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/channel/subscribe/${slug}`
 		axios
 			.get(url, {
 				headers: {

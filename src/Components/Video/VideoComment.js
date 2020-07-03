@@ -42,7 +42,7 @@ export default function VideoComment({ userName, comments, setComment, slug }) {
 			}
 		])
 		setNewComment("")
-		let url = `${process.env.REACT_APP_API_URL}/api/video/comment/${slug}/`
+		let url = `https://8jx1h4z1ra.execute-api.ap-south-1.amazonaws.com/dev/api/video/comment/${slug}/`
 		axios
 			.post(
 				url,
